@@ -8,6 +8,8 @@ pipeline {
         echo "Toggle: ${params.TOGGLE}"
         echo "Choice: ${params.CHOICE}"
         echo "Password: ${params.PASSWORD}"
+        libraryResource(resource: 'utils.Groovy', encoding: 'UTF-8')
+        load 'utils.Groovy'
       }
     }
 
