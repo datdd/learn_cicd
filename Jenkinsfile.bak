@@ -3,8 +3,7 @@ def parameter_list = [
     text(name: 'BIOGRAPHY', defaultValue: '', description: 'Enter some information about the person'),
     booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Toggle this value'),
     choice(name: 'CHOICE', choices: ['One', 'Two', 'Three'], description: 'Pick something'),
-    password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Enter a password'),
-    choice(name: 'LET_CHOICE', choices: ['A', 'B', 'C'], description: 'Pick something')
+    password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Enter a password')
 ]
 properties([
     parameters(parameter_list)
@@ -23,13 +22,10 @@ pipeline {
         }
 
         stage('Example') {
+            utils = load 'utils.Groovy'
             steps {
-                script {
-                  utils = load 'utils.Groovy'
-                  utils.prepare_build_enviroment()
-                }
-                sh 'env'
-                
+                utils.prepare_build_enviroment()
+
                 echo "Hello ${PERSON}"
                 echo "Biography: ${BIOGRAPHY}"
                 echo "Toggle: ${TOGGLE}"
