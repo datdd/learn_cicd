@@ -25,16 +25,29 @@ pipeline {
         stage('Example') {
             steps {
                 script {
-                  utils = load 'utils.Groovy'
-                  utils.prepare_build_enviroment()
+                    params.each { name, value ->
+                        println "Name: $name -> Value: $value"
+                    }
                 }
+                
                 sh 'env'
                 
-                echo "Hello ${PERSON}"
-                echo "Biography: ${BIOGRAPHY}"
-                echo "Toggle: ${TOGGLE}"
-                echo "Choice: ${CHOICE}"
-                echo "Password: ${PASSWORD}"
+                script {
+                    def person = [name: 'Guillaume', age: 36]
+                    utils = load 'utils.Groovy'
+                    utils.prepare_build_enviroment(
+                        label: 'Hello World',
+                        str: """
+                            line1 ${person.name}
+                            line2 ${person.age}
+                        """)
+                }
+                
+                echo "Hello ${params.PERSON}"
+                echo "Biography: ${params.BIOGRAPHY}"
+                echo "Toggle: ${params.TOGGLE}"
+                echo "Choice: ${params.CHOICE}"
+                echo "Password: ${params.PASSWORD}"
             }
         }
     }

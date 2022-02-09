@@ -1,11 +1,11 @@
-def prepare_build_enviroment() {
-    println("Parameters")
+def prepare_build_enviroment(Map args) {
+    println("${args.label}: ${args.str}")
 
-    params.each { name, value ->
-        println "Name: $name -> Value: $value"
-    }
+    // params.each { name, value ->
+    //     println "Name: $name -> Value: $value"
+    // }
 
-    println("END!")
+    // println("END!")
 }
 
 return this
