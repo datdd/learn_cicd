@@ -1,0 +1,29 @@
+import hudson.model.*
+ 
+def from_view_name = "List-003"
+def to_view_name = "List-004"
+ 
+def from_view = Hudson.instance.getView(from_view_name)
+def to_view = Hudson.instance.getView(to_view_name)
+ 
+//copy all projects of a view
+for(item in from_view.getItems())
+{
+  
+  //create the new project name
+  newName = "tmp-${item.getName()}"
+  
+  try {
+    // copy the job, disable and save it
+    def job = Hudson.instance.copy(item, newName)
+    //job.disabled = true
+    job.save()
+    to_view.add(job)
+    
+    println(" $item.name copied as $newName")
+  }
+  catch(IllegalArgumentException e) {
+    println("${newName} already exists")
+  }
+
+}
