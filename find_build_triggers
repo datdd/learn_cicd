@@ -1,0 +1,17 @@
+import hudson.model.*
+import hudson.triggers.*
+
+def viewName = "Nightly"
+def viewTitle = "Build Triggers"
+
+for(view in Hudson.instance.views) {
+    if( view.name == viewName ) {
+        for(item in Hudson.instance.items) {
+            for(trigger in item.triggers.values()) {
+                if(trigger instanceof TimerTrigger) {
+                    println(item.name)
+                }
+            }
+        }
+    }
+}
