@@ -9,7 +9,7 @@ for(view in Hudson.instance.views) {
         for(item in Hudson.instance.items) {
             for(trigger in item.triggers.values()) {
                 if(trigger instanceof TimerTrigger) {
-                    println(item.name)
+                    println("${item.name} - ${trigger.spec}")
                 }
             }
         }
